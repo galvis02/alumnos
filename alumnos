@@ -1,0 +1,76 @@
+public class Main {
+    public static void main(String[] args) {
+        final int NUM_ALUMNOS = 15;
+        Alumnos alumnos = new Alumnos(NUM_ALUMNOS);
+
+        alumnos.ingresarNotas();
+
+        double mayorNota = alumnos.calcularMayorNota();
+        double promedioNotas = alumnos.calcularPromedio();
+        int alumnosAprobados = alumnos.contarAlumnosAprobados();
+        int posicionMenorNota = alumnos.posicionMenorNota();
+        double porcentajeAprobados = (alumnosAprobados / (double) NUM_ALUMNOS) * 100;
+
+        System.out.println("La mayor nota es: " + mayorNota);
+        System.out.println("El porcentaje de alumnos que aprobaron con nota superior a 3.0 es: " + porcentajeAprobados + "%");
+        System.out.println("El promedio de las notas es: " + promedioNotas);
+        System.out.println("La posicion de la menor nota en el arreglo es: " + posicionMenorNota);
+    }
+}
+
+
+import java.util.Scanner;
+
+public class Alumnos {
+    private double[] notas;
+
+    public Alumnos(int numAlumnos) {
+        notas = new double[numAlumnos];
+    }
+
+    public void ingresarNotas() {
+        Scanner scanner = new Scanner(System.in);
+        for (int i = 0; i < notas.length; i++) {
+            System.out.print("Ingrese la nota del alumno " + (i + 1) + ": ");
+            notas[i] = scanner.nextDouble();
+        }
+    }
+
+    public double calcularMayorNota() {
+        double mayor = notas[0];
+        for (double nota : notas) {
+            if (nota > mayor) {
+                mayor = nota;
+            }
+        }
+        return mayor;
+    }
+
+    public double calcularPromedio() {
+        double suma = 0;
+        for (double nota : notas) {
+            suma += nota;
+        }
+        return suma / notas.length;
+    }
+
+    public int contarAlumnosAprobados() {
+        int contador = 0;
+        for (double nota : notas) {
+            if (nota > 3.0) {
+                contador++;
+            }
+        }
+        return contador;
+    }
+
+    public int posicionMenorNota() {
+        int pos = 0;
+        for (int i = 1; i < notas.length; i++) {
+            if (notas[i] < notas[pos]) {
+                pos = i;
+            }
+        }
+        return pos;
+    }
+}
